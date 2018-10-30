@@ -1,0 +1,15 @@
+language: node_js
+branches:
+  only:
+    - master
+node_js:
+ - "node"
+install:
+ - npm install
+script:
+  - npm run build
+deploy:
+  provider: surge
+  project: ./public/
+  domain: commit-cheatsheet.surge.sh
+  skip_cleanup: true
