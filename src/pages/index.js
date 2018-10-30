@@ -81,13 +81,8 @@ class CommitCheatsheetPage extends Component {
               : {description}
             </li>
           ))}
-          <li>
-            <CopyToClipboard
-              text="secret"
-            >
-              <strong css="cursor: pointer; display: none;">secret</strong>
-            </CopyToClipboard>
-            : this is a secrete commit message
+          <li css="display: none;">
+            secret: this is a secret commit message
           </li>
         </ul>
       </Cheatsheet>
