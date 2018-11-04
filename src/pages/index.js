@@ -87,9 +87,9 @@ class CommitCheatsheetPage extends Component {
                 text={title}
                 onCopy={() => console.log(`Copied ${title}`)}
               >
-                <strong>{title}</strong>
+                <strong className="heading">{title}</strong>
               </CopyToClipboard>
-              : {description}
+              <span className="dots">: </span><span className="description">{description}</span>
             </li>
           ))}
         </ScopeList>

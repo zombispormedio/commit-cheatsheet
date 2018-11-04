@@ -48,7 +48,7 @@ export const MobileTabs = ({ activeTabId, onTabClick }) => (
       active={activeTabId === "titleconv"}
       onClick={() => onTabClick("titleconv")}
     >
-      Title Convention
+      Convention
     </MobileTab>
   </MobileTabsContainer>
 );

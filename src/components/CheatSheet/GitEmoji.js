@@ -16,8 +16,7 @@ export const GitEmoji = styled.div`
   }
   ${mq.mobile} {
     display: ${props => props.active ? 'grid' : 'none'};
-    grid-template-columns: repeat(1, 1fr);
-    grid-auto-rows: inherit;
+    grid-template-columns: repeat( auto-fit, minmax(15rem, 1fr) );
     padding-top: 2rem;
     padding-bottom: 2rem;
   }

@@ -1,4 +1,5 @@
 import styled from "react-emotion";
+import mq from "../../theme/mq";
 import "./gitemoji.css";
 
 export const GitEmojiItem = styled.div`
@@ -14,6 +15,9 @@ export const Emoji = styled.div`
   border-radius: 4px;
   span {
     font-size: 2em;
+    ${mq.mobile} {
+      font-size: 5em;
+    }
   }
 `;
 
