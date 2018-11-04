@@ -26,7 +26,7 @@ export const GitEmojiInput = styled.input`
   width: 50%;
   ${mq.mobile} {
     position: inherit;
-    width: auto;
+    width: 100%;
     bottom: inherit;
     margin-bottom: 1rem;
     font-size: 2rem;
