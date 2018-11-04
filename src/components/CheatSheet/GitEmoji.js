@@ -3,21 +3,23 @@ import mq from "../../theme/mq";
 
 export const GitEmoji = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   grid-gap: 1rem;
-  max-height: 100vh;
-  overflow-y: auto;
   padding-top: 1rem;
-  padding-right: 1rem;
   padding-bottom: 5rem;
+  ${mq.desktop} {
+    grid-template-columns: repeat(3, 1fr);
+    max-height: 100vh;
+    width: 75%;
+    height: 100vh;
+    overflow-y: scroll;
+    padding-right: 1rem;
+  }
   ${mq.mobile} {
     display: ${props => props.active ? 'grid' : 'none'};
-    max-height: inherit;
     grid-template-columns: repeat(1, 1fr);
     grid-auto-rows: inherit;
     padding-top: 2rem;
     padding-bottom: 2rem;
-    padding-right: inherit;
   }
 `;
 
