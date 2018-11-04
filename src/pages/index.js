@@ -6,8 +6,11 @@ import {
   SiteHead,
   Cheatsheet,
   GitEmoji,
+  GitEmojiInput,
   GitEmojiItem,
-  Emoji
+  Emoji,
+  EmojiDescription,
+  ScopeList
 } from "../components";
 
 class CommitCheatsheetPage extends Component {
@@ -38,8 +41,7 @@ class CommitCheatsheetPage extends Component {
       <Cheatsheet>
         <SiteHead />
         <GitEmoji>
-          <input
-            css="position: fixed; bottom: 0.5rem; width: 50%;"
+          <GitEmojiInput
             type="text"
             value={search}
             onChange={this.onChange}
@@ -61,30 +63,27 @@ class CommitCheatsheetPage extends Component {
                   <Emoji className={name}>
                     <span>{emoji}</span>
                   </Emoji>
-                  <div css="padding: 0.5rem;">
+                  <EmojiDescription>
                     <div>{code}</div>
                     <div>{description}</div>
-                  </div>
+                  </EmojiDescription>
                 </GitEmojiItem>
               </CopyToClipboard>
             ))}
         </GitEmoji>
-        <ul>
+        <ScopeList>
           {convention.items.map(({ title, description }) => (
             <li key={title}>
               <CopyToClipboard
                 text={title}
                 onCopy={() => console.log(`Copied ${title}`)}
               >
-                <strong css="cursor: pointer;">{title}</strong>
+                <strong>{title}</strong>
               </CopyToClipboard>
               : {description}
             </li>
           ))}
-          <li css="display: none;">
-            secret: this is a secret commit message
-          </li>
-        </ul>
+        </ScopeList>
       </Cheatsheet>
     );
   }

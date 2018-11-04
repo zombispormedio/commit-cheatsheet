@@ -16,3 +16,7 @@ export const Emoji = styled.div`
     font-size: 2em;
   }
 `;
+
+export const EmojiDescription = styled.div`
+  padding: 0.5rem;
+`;
