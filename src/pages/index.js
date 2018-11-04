@@ -10,12 +10,14 @@ import {
   GitEmojiItem,
   Emoji,
   EmojiDescription,
-  ScopeList
+  ScopeList,
+  MobileTabs
 } from "../components";
 
 class CommitCheatsheetPage extends Component {
   state = {
-    search: ""
+    search: '',
+    activeTabId: 'gitemoji'
   };
 
   onChange = ({ target: { value: search } }) => {
@@ -23,6 +25,12 @@ class CommitCheatsheetPage extends Component {
       search
     });
   };
+
+  onTabClick = activeTabId => {
+    this.setState({
+      activeTabId
+    })
+  }
 
   render() {
     const {
@@ -36,11 +44,12 @@ class CommitCheatsheetPage extends Component {
         }
       }
     } = this.props;
-    const { search } = this.state;
+    const { search, activeTabId } = this.state;
     return (
       <Cheatsheet>
         <SiteHead />
-        <GitEmoji>
+        <MobileTabs activeTabId={activeTabId} onTabClick={this.onTabClick} />
+        <GitEmoji active={activeTabId === 'gitemoji'}>
           <GitEmojiInput
             type="text"
             value={search}
@@ -71,7 +80,7 @@ class CommitCheatsheetPage extends Component {
               </CopyToClipboard>
             ))}
         </GitEmoji>
-        <ScopeList>
+        <ScopeList active={activeTabId === 'titleconv'}>
           {convention.items.map(({ title, description }) => (
             <li key={title}>
               <CopyToClipboard

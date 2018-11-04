@@ -17,10 +17,13 @@ export const ScopeList = styled.ul`
     cursor: pointer;
   }
   ${mq.mobile} {
-    padding-bottom: 4rem;
+    display: ${ props => props.active ? 'block' : 'none' };
+    padding-bottom: 2rem;
+    padding-top: 2rem;
   }
 `;
 
 
 export * from "./GitEmoji";
 export * from "./GitEmojiItem";
+export * from "./MobileTabs";

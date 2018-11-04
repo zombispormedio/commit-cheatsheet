@@ -11,11 +11,12 @@ export const GitEmoji = styled.div`
   padding-right: 1rem;
   padding-bottom: 5rem;
   ${mq.mobile} {
+    display: ${props => props.active ? 'grid' : 'none'};
     max-height: inherit;
     grid-template-columns: repeat(1, 1fr);
     grid-auto-rows: inherit;
     padding-top: 2rem;
-    padding-bottom: 3rem;
+    padding-bottom: 2rem;
     padding-right: inherit;
   }
 `;
