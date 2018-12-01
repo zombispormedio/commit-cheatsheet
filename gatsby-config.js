@@ -3,7 +3,8 @@ module.exports = {
     title: "Commit Cheatsheet",
     author: "Xavier Serrano",
     description: "GitEmoji  + Commit convention",
-    keywords: ["commit", "emojiss"]
+    keywords: ["commit", "emojiss"],
+    siteUrl: `https://commit-cheatsheet.surge.sh`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -11,13 +12,13 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: "Commit Cheatsheet",
-        short_name: "Commit Cheatsheet",
+        short_name: "Commits",
         start_url: "/",
         background_color: "#fff",
         theme_color: "#20287a",
         display: "standalone",
         icon: "static/original.png"
-      },
+      }
     },
     {
       resolve: `gatsby-plugin-typography`,
@@ -33,6 +34,13 @@ module.exports = {
         path: `./content`
       }
     },
-    `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: process.env.GA_ID
+      }
+    },
+    `gatsby-plugin-sitemap`,
+    `gatsby-plugin-offline`
   ]
 };

@@ -54,7 +54,8 @@ class CommitCheatsheetPage extends Component {
             type="text"
             value={search}
             onChange={this.onChange}
-            placeholder="search emoji"
+            placeholder="Search emoji"
+            aria-label="Search emoji"
           />
           {gitemoji.items
             .filter(item => {
