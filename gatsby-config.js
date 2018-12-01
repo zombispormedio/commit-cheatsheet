@@ -4,7 +4,7 @@ module.exports = {
     author: "Xavier Serrano",
     description: "GitEmoji  + Commit convention",
     keywords: ["commit", "emojiss"],
-    siteUrl: `https://commit-cheatsheet.surge.sh`,
+    siteUrl: `https://commit-cheatsheet.surge.sh`
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -40,7 +40,17 @@ module.exports = {
         trackingId: process.env.GA_ID
       }
     },
-    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        serialize: ({ site, allSitePage }) =>
+          allSitePage.edges.map(edge => ({
+            url: site.siteMetadata.siteUrl + edge.node.path,
+            changefreq: `weekly`,
+            priority: 0.7
+          }))
+      }
+    },
     `gatsby-plugin-offline`
   ]
 };

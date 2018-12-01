@@ -11,5 +11,5 @@ script:
 deploy:
   provider: surge
   project: ./public/
-  domain: commit-cheatsheet.surge.sh
+  domain: https://commit-cheatsheet.surge.sh
   skip_cleanup: true
