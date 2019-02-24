@@ -1,103 +1,34 @@
-import React, { Component } from "react";
+import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import {
-  SiteHead,
-  Cheatsheet,
-  GitEmoji,
-  GitEmojiInput,
-  GitEmojiItem,
-  Emoji,
-  EmojiDescription,
-  ScopeList,
-  MobileTabs
-} from "../components";
+import { Cheatsheet, MobileTabs } from "../components";
+import SiteHead from "../components/SiteHead";
+import GitEmoji from "../components/GitEmoji";
+import CommitConvention from "../components/CommitConvention";
 
-class CommitCheatsheetPage extends Component {
-  state = {
-    search: '',
-    activeTabId: 'gitemoji'
-  };
-
-  onChange = ({ target: { value: search } }) => {
-    this.setState({
-      search
-    });
-  };
-
-  onTabClick = activeTabId => {
-    this.setState({
-      activeTabId
-    })
-  }
-
-  render() {
-    const {
-      data: {
-        allContentJson: {
-          edges: [
-            {
-              node: { gitemoji, convention }
-            }
-          ]
+const CommitCheatsheetPage = ({
+  data: {
+    site: { siteMetadata },
+    allContentJson: {
+      edges: [
+        {
+          node: { gitemoji, convention }
         }
-      }
-    } = this.props;
-    const { search, activeTabId } = this.state;
-    return (
-      <Cheatsheet>
-        <SiteHead />
-        <MobileTabs activeTabId={activeTabId} onTabClick={this.onTabClick} />
-        <GitEmoji active={activeTabId === 'gitemoji'}>
-          <GitEmojiInput
-            type="text"
-            value={search}
-            onChange={this.onChange}
-            placeholder="Search emoji"
-            aria-label="Search emoji"
-          />
-          {gitemoji.items
-            .filter(item => {
-              if (search === "") return true;
-              const regex = new RegExp(search, "gim");
-              return regex.test(item.code) || regex.test(item.description);
-            })
-            .map(({ emoji, code, description, name }) => (
-              <CopyToClipboard
-                key={emoji}
-                text={code}
-                onCopy={() => console.log(`Copied ${code}`)}
-              >
-                <GitEmojiItem>
-                  <Emoji className={name}>
-                    <span>{emoji}</span>
-                  </Emoji>
-                  <EmojiDescription>
-                    <div>{code}</div>
-                    <div>{description}</div>
-                  </EmojiDescription>
-                </GitEmojiItem>
-              </CopyToClipboard>
-            ))}
-        </GitEmoji>
-        <ScopeList active={activeTabId === 'titleconv'}>
-          {convention.items.map(({ title, description }) => (
-            <li key={title}>
-              <CopyToClipboard
-                text={title}
-                onCopy={() => console.log(`Copied ${title}`)}
-              >
-                <strong className="heading">{title}</strong>
-              </CopyToClipboard>
-              <span className="dots">: </span><span className="description">{description}</span>
-            </li>
-          ))}
-        </ScopeList>
-      </Cheatsheet>
-    );
+      ]
+    }
   }
-}
+}) => {
+  const [activeTabId, setActiveTabId] = useState("gitemoji");
+  const onTabClick = useCallback(id => setActiveTabId(id));
+  return (
+    <Cheatsheet>
+      <SiteHead siteInformation={siteMetadata} />
+      <MobileTabs activeTabId={activeTabId} onTabClick={onTabClick} />
+      <GitEmoji active={activeTabId === "gitemoji"} {...gitemoji} />
+      <CommitConvention active={activeTabId === "commitconv"} {...convention} />
+    </Cheatsheet>
+  );
+};
 
 CommitCheatsheetPage.propTypes = {
   data: PropTypes.shape({
@@ -110,24 +41,16 @@ CommitCheatsheetPage.propTypes = {
 export default CommitCheatsheetPage;
 
 export const query = graphql`
-  query {
+  query IndexQuery {
+    site {
+      ...SiteInformation
+    }
+
     allContentJson {
       edges {
         node {
-          gitemoji {
-            items {
-              name
-              emoji
-              code
-              description
-            }
-          }
-          convention {
-            items {
-              title
-              description
-            }
-          }
+          ...GitEmoji
+          ...CommitConvention
         }
       }
     }

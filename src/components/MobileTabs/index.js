@@ -1,5 +1,6 @@
 import React from "react";
-import styled from "react-emotion";
+import PropTypes from "prop-types";
+import styled from "@emotion/styled";
 import mq from "../../theme/mq";
 
 const MobileTabsContainer = styled.div`
@@ -8,13 +9,13 @@ const MobileTabsContainer = styled.div`
     margin-top: 1rem;
     display: flex;
     & div:first-child {
-        border-top-left-radius: 2px;
-        border-bottom-left-radius: 2px;
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px;
     }
 
     & div:last-child {
-        border-top-right-radius: 2px;
-        border-bottom-right-radius: 2px;
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
     }
   }
 `;
@@ -45,10 +46,19 @@ export const MobileTabs = ({ activeTabId, onTabClick }) => (
       Git Emoji
     </MobileTab>
     <MobileTab
-      active={activeTabId === "titleconv"}
-      onClick={() => onTabClick("titleconv")}
+      active={activeTabId === "commitconv"}
+      onClick={() => onTabClick("commitconv")}
     >
       Convention
     </MobileTab>
   </MobileTabsContainer>
 );
+
+MobileTabs.defaultProps = {
+  activeTabId: "gitemoji"
+};
+
+MobileTabs.propTypes = {
+  onTabClick: PropTypes.func.isRequired,
+  activeTabId: PropTypes.oneOf("gitemoji", "commitconv")
+};

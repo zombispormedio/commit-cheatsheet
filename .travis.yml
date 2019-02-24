@@ -13,3 +13,6 @@ deploy:
   project: ./public/
   domain: https://commit-cheatsheet.surge.sh
   skip_cleanup: true
+  on:
+    branch: "master"
+	tags: true

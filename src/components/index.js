@@ -1,2 +1,2 @@
-export * from "./SiteHead";
-export * from "./CheatSheet";
+export { Cheatsheet } from "./CheatSheet";
+export { MobileTabs } from "./MobileTabs";

@@ -6,7 +6,9 @@
   "scripts": {
     "develop": "env-cmd ./.env gatsby develop",
     "build": "gatsby build",
-    "serve": "gatsby serve"
+    "serve": "gatsby serve",
+    "format": "prettier --write **/*.js",
+    "lint": "eslint **/*.js"
   },
   "repository": {
     "type": "git",
@@ -19,29 +21,55 @@
   },
   "homepage": "https://github.com/Zombispormedio/commit-cheatsheet#readme",
   "dependencies": {
-    "emotion": "^9.2.12",
-    "emotion-server": "^9.2.12",
-    "emotion-theming": "^9.2.9",
-    "gatsby": "^2.0.35",
-    "gatsby-plugin-emotion": "^2.0.6",
-    "gatsby-plugin-google-analytics": "^2.0.8",
-    "gatsby-plugin-manifest": "^2.0.7",
-    "gatsby-plugin-offline": "^2.0.10",
-    "gatsby-plugin-react-helmet": "^3.0.1",
-    "gatsby-plugin-sitemap": "^2.0.3",
-    "gatsby-plugin-typography": "^2.2.1",
-    "gatsby-source-filesystem": "^2.0.6",
-    "gatsby-transformer-json": "^2.1.5",
-    "prop-types": "^15.6.2",
-    "react": "^16.6.0",
+    "@emotion/core": "^10.0.7",
+    "@emotion/styled": "^10.0.7",
+    "emotion-theming": "^10.0.7",
+    "gatsby": "^2.1.17",
+    "gatsby-plugin-emotion": "^4.0.4",
+    "gatsby-plugin-google-analytics": "^2.0.14",
+    "gatsby-plugin-manifest": "^2.0.19",
+    "gatsby-plugin-offline": "^2.0.24",
+    "gatsby-plugin-react-helmet": "^3.0.6",
+    "gatsby-plugin-sitemap": "^2.0.6",
+    "gatsby-plugin-typography": "^2.2.7",
+    "gatsby-source-filesystem": "^2.0.22",
+    "gatsby-transformer-json": "^2.1.8",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.3",
     "react-copy-to-clipboard": "^5.0.1",
-    "react-dom": "^16.6.0",
-    "react-emotion": "^9.2.12",
+    "react-dom": "^16.8.3",
     "react-helmet": "^5.2.0",
-    "react-typography": "^0.16.13",
-    "typography": "^0.16.17"
+    "react-typography": "^0.16.18",
+    "typography": "^0.16.18"
   },
   "devDependencies": {
-    "env-cmd": "^8.0.2"
+    "babel-eslint": "^10.0.1",
+    "env-cmd": "^8.0.2",
+    "eslint": "5.14.1",
+    "eslint-config-airbnb": "17.1.0",
+    "eslint-config-prettier": "4.0.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "2.16.0",
+    "eslint-plugin-jsx-a11y": "6.2.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "7.12.4",
+    "eslint-plugin-react-hooks": "^1.2.0",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.4",
+    "prettier": "1.16.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "linters": {
+      "*.js": [
+        "prettier --write",
+        "eslint",
+        "git add"
+      ]
+    }
   }
 }
