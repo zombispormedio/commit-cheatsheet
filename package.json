@@ -6,6 +6,7 @@
   "scripts": {
     "develop": "env-cmd ./.env gatsby develop",
     "build": "gatsby build",
+    "build:env": "env-cmd ./.env gatsby build",
     "serve": "gatsby serve",
     "format": "prettier --write **/*.js",
     "lint": "eslint **/*.js"

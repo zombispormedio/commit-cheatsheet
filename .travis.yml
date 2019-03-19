@@ -3,13 +3,20 @@ branches:
   only:
     - master
 node_js:
- - "node"
+  - "node"
+before_install:
+  - docker pull zombispormedio/micro
 install:
- - npm install
+  - npm install
 script:
   - npm run build
+  - docker build -t commit-cheatsheet .
 deploy:
-  provider: surge
-  project: ./public/
-  domain: https://commit-cheatsheet.surge.sh
-  skip_cleanup: true
+  - provider: surge
+    project: ./public/
+    domain: https://commit-cheatsheet.surge.sh
+    skip_cleanup: true
+  - provider: script
+    script: bash docker_push
+    on:
+      branch: master
