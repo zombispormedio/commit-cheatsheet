@@ -17,6 +17,6 @@ deploy:
     domain: https://commit-cheatsheet.surge.sh
     skip_cleanup: true
   - provider: script
-    script: bash docker_push
+    script: bash docker_push.sh
     on:
       branch: master
