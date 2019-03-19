@@ -1,7 +1,7 @@
 {
   "name": "commit-cheatsheet",
   "version": "1.0.3",
-  "description": "",
+  "description": "Help to follow a commit convention",
   "main": "index.js",
   "scripts": {
     "develop": "env-cmd ./.env gatsby develop",
