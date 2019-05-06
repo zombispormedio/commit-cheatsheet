@@ -29,16 +29,18 @@ const updateSearchUrl = newSearch => {
 };
 
 const getCachePinned = () => {
-  const pinned = localStorage.getItem("pinned");
+  if (typeof window === `undefined`) return [];
+  const pinned = window.localStorage.getItem("pinned");
   return !pinned && pinned !== ""
     ? []
-    : localStorage.getItem("pinned").split(",");
+    : window.localStorage.getItem("pinned").split(",");
 };
 
 const GitEmoji = ({ active, items }) => {
-  const [search, setSearch] = useState(
-    () => new URL(window.location.href).searchParams.get("s") || ""
-  );
+  const [search, setSearch] = useState(() => {
+    if (typeof window === `undefined`) return "";
+    return new URL(window.location.href).searchParams.get("s") || "";
+  });
   const [filteredItems, setFilteredItems] = useState(() => {
     const cachePinned = getCachePinned();
     return filterBySearch(
