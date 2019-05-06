@@ -15,38 +15,78 @@ const Emoji = styled.div`
   }
 `;
 
-const EmojiDescription = styled.div`
+const EmojiDetails = styled.div`
   padding: 0.5rem;
+  .description {
+    min-height: 3rem;
+  }
 `;
 
-const GitEmojiItemWrapper = styled.div`
+const EmojiWrapper = styled.div`
   display: flex;
   flex-direction: column;
   box-shadow: 0 1px 2px 0 rgba(168, 182, 191, 0.6);
-  cursor: pointer;
-  text-align: center;
   border-radius: 4px;
 `;
 
-const GitEmojiItem = ({ emoji, code, description, name }) => (
-  <CopyToClipboard text={code} onCopy={() => console.log(`Copied ${code}`)}>
-    <GitEmojiItemWrapper>
-      <Emoji className={name}>
-        <span>{emoji}</span>
-      </Emoji>
-      <EmojiDescription>
-        <div>{code}</div>
-        <div>{description}</div>
-      </EmojiDescription>
-    </GitEmojiItemWrapper>
-  </CopyToClipboard>
+const EmojiContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  text-align: center;
+`;
+
+const PinIcon = styled.i`
+  align-self: flex-end;
+  margin: 0.5rem;
+  cursor: pointer;
+  :hover {
+    opacity: 0.8;
+  }
+`;
+
+const GitEmojiItem = ({
+  emoji,
+  code,
+  description,
+  name,
+  onCopy,
+  onPin,
+  pinned
+}) => (
+  <EmojiWrapper>
+    <CopyToClipboard text={code} onCopy={() => onCopy(code)}>
+      <EmojiContent>
+        <Emoji className={name}>
+          <span>{emoji}</span>
+        </Emoji>
+        <EmojiDetails>
+          <div className="code">{code}</div>
+          <div className="description">{description}</div>
+        </EmojiDetails>
+      </EmojiContent>
+    </CopyToClipboard>
+    <PinIcon
+      className={`icon-pin${pinned ? "-off" : ""}`}
+      onClick={() => onPin(code)}
+    />
+  </EmojiWrapper>
 );
+
+GitEmojiItem.defaultProps = {
+  onCopy: code => console.log(`Copied ${code}`),
+  onPin: code => console.log(`Pinned ${code}`),
+  pinned: false
+};
 
 GitEmojiItem.propTypes = {
   emoji: PropTypes.string.isRequired,
   code: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  onCopy: PropTypes.func,
+  onPin: PropTypes.func,
+  pinned: PropTypes.bool
 };
 
 export default GitEmojiItem;

@@ -8,7 +8,7 @@ const MobileTabsContainer = styled.div`
   ${mq.mobile} {
     margin-top: 1rem;
     display: flex;
-    & div:first-child {
+    & div:first-of-type {
       border-top-left-radius: 2px;
       border-bottom-left-radius: 2px;
     }
@@ -60,5 +60,5 @@ MobileTabs.defaultProps = {
 
 MobileTabs.propTypes = {
   onTabClick: PropTypes.func.isRequired,
-  activeTabId: PropTypes.oneOf("gitemoji", "commitconv")
+  activeTabId: PropTypes.oneOf(["gitemoji", "commitconv"])
 };
