@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
+import { ToastContainer } from "react-toastify";
 import { Cheatsheet, MobileTabs } from "../components";
 import SiteHead from "../components/SiteHead";
 import GitEmoji from "../components/GitEmoji";
@@ -26,6 +27,7 @@ const CommitCheatsheetPage = ({
       <MobileTabs activeTabId={activeTabId} onTabClick={onTabClick} />
       <GitEmoji active={activeTabId === "gitemoji"} {...gitemoji} />
       <CommitConvention active={activeTabId === "commitconv"} {...convention} />
+      <ToastContainer autoClose={2000} newestOnTop />
     </Cheatsheet>
   );
 };

@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { toast } from "react-toastify";
 import styled from "@emotion/styled";
 import mq from "../../theme/mq";
 
@@ -43,10 +44,7 @@ const CommitConvention = ({ items, active }) => (
   <ConventionWrapper active={active}>
     {items.map(({ title, description }) => (
       <li key={title}>
-        <CopyToClipboard
-          text={title}
-          onCopy={() => console.log(`Copied ${title}`)}
-        >
+        <CopyToClipboard text={title} onCopy={() => toast(`Copied ${title}`)}>
           <strong className="heading">{title}</strong>
         </CopyToClipboard>
         <span className="dots">: </span>

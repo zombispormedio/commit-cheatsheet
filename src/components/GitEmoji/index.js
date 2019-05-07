@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import styled from "@emotion/styled";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import GitEmojiItem from "./GitEmojiItem";
 import GitEmojiWrapper from "./GitEmojiWrapper";
 import GitEmojiContent from "./GitEmojiContent";
@@ -102,45 +102,42 @@ const GitEmoji = ({ active, items }) => {
   );
 
   return (
-    <>
-      <GitEmojiWrapper active={active}>
-        <GitEmojiInput
-          type="text"
-          value={search}
-          onChange={onChange}
-          placeholder="Search emoji"
-          aria-label="Search emoji"
-        />
-        {pinnedItems.length > 0 && (
-          <>
-            <GitEmojiContent>
-              {pinnedItems.map(item => (
-                <GitEmojiItem
-                  key={item.code}
-                  {...item}
-                  onCopy={code => toast(`Copied ${code}`)}
-                  pinned
-                  onPin={onUnpin}
-                />
-              ))}
-            </GitEmojiContent>
-            <Divider />
-          </>
-        )}
-        <GitEmojiContent>
-          {filteredItems.map(item => (
-            <GitEmojiItem
-              key={item.code}
-              {...item}
-              onCopy={code => toast(`Copied ${code}`)}
-              pinned={false}
-              onPin={onPin}
-            />
-          ))}
-        </GitEmojiContent>
-      </GitEmojiWrapper>
-      <ToastContainer />
-    </>
+    <GitEmojiWrapper active={active}>
+      <GitEmojiInput
+        type="text"
+        value={search}
+        onChange={onChange}
+        placeholder="Search emoji"
+        aria-label="Search emoji"
+      />
+      {pinnedItems.length > 0 && (
+        <>
+          <GitEmojiContent>
+            {pinnedItems.map(item => (
+              <GitEmojiItem
+                key={item.code}
+                {...item}
+                onCopy={code => toast(`Copied ${code}`)}
+                pinned
+                onPin={onUnpin}
+              />
+            ))}
+          </GitEmojiContent>
+          <Divider />
+        </>
+      )}
+      <GitEmojiContent>
+        {filteredItems.map(item => (
+          <GitEmojiItem
+            key={item.code}
+            {...item}
+            onCopy={code => toast(`Copied ${code}`)}
+            pinned={false}
+            onPin={onPin}
+          />
+        ))}
+      </GitEmojiContent>
+    </GitEmojiWrapper>
   );
 };
 
