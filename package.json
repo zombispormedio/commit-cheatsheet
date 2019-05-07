@@ -1,6 +1,6 @@
 {
   "name": "commit-cheatsheet",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Help to follow a commit convention",
   "main": "index.js",
   "scripts": {
