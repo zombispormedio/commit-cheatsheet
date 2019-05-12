@@ -4,7 +4,7 @@
   "description": "Help to follow a commit convention",
   "main": "index.js",
   "scripts": {
-    "develop": "env-cmd gatsby develop",
+    "develop": "gatsby develop",
     "build": "gatsby build",
     "build:env": "env-cmd gatsby build",
     "serve": "gatsby serve",

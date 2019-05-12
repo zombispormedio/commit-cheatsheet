@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import styled from "@emotion/styled";
@@ -41,64 +41,45 @@ const GitEmoji = ({ active, items }) => {
     if (typeof window === `undefined`) return "";
     return new URL(window.location.href).searchParams.get("s") || "";
   });
-  const [filteredItems, setFilteredItems] = useState(() => {
-    const cachePinned = getCachePinned();
-    return filterBySearch(
-      items.filter(item => !cachePinned.includes(item.code)),
+  const [pinned, setPinned] = useState(() => getCachePinned());
+
+  const { pinnedItems, filteredItems } = useMemo(() => {
+    const p = items.filter(item => pinned.includes(item.code));
+    const f = filterBySearch(
+      items.filter(item => !pinned.includes(item.code)),
       search
     );
-  });
-  const [pinnedItems, setPinnedItems] = useState(() => {
-    const cachePinned = getCachePinned();
-    return items.filter(item => cachePinned.includes(item.code));
-  });
+    return {
+      pinnedItems: p,
+      filteredItems: f
+    };
+  }, [items, pinned, search]);
 
-  const onChange = useCallback(
-    ({ target: { value: newSearch } }) => {
-      setSearch(newSearch);
-      const pinnedCodes = pinnedItems.map(({ code }) => code);
-      setFilteredItems(
-        filterBySearch(
-          items.filter(item => !pinnedCodes.includes(item.code)),
-          newSearch
-        )
-      );
-      updateSearchUrl(newSearch);
-    },
-    [items, pinnedItems]
-  );
+  const onChange = useCallback(({ target: { value: newSearch } }) => {
+    setSearch(newSearch);
+    updateSearchUrl(newSearch);
+  }, []);
 
   const onPin = useCallback(
-    code => {
-      const elem = items.find(item => item.code === code);
-      setPinnedItems(prev => [...prev, elem]);
-      setFilteredItems(prev => prev.filter(item => item.code !== code));
-      const cachePinned = getCachePinned();
-      cachePinned.push(code);
-      localStorage.setItem("pinned", cachePinned.join(","));
-    },
-    [items]
+    code =>
+      setPinned(prev => {
+        const newPinned = [...prev, code];
+        localStorage.setItem("pinned", newPinned.join(","));
+        return newPinned;
+      }),
+    []
   );
 
   const onUnpin = useCallback(
-    code => {
-      const index = pinnedItems.findIndex(item => item.code === code);
-      const newPinnedItems = [...pinnedItems];
-      newPinnedItems.splice(index, 1);
-      setPinnedItems(newPinnedItems);
-      const pinnedCodes = newPinnedItems.map(item => item.code);
-      setFilteredItems(
-        filterBySearch(
-          items.filter(item => !pinnedCodes.includes(item.code)),
-          search
-        )
-      );
-      const cachePinned = getCachePinned();
-      const cacheIndex = cachePinned.findIndex(item => item.code === code);
-      cachePinned.splice(cacheIndex, 1);
-      localStorage.setItem("pinned", cachePinned.join(","));
-    },
-    [items, search, pinnedItems]
+    code =>
+      setPinned(prev => {
+        const index = prev.findIndex(item => item === code);
+        const newPinned = [...prev];
+        newPinned.splice(index, 1);
+        localStorage.setItem("pinned", newPinned.join(","));
+        return newPinned;
+      }),
+    []
   );
 
   return (
