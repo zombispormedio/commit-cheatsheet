@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import { ToastContainer } from "react-toastify";
@@ -20,7 +20,7 @@ const CommitCheatsheetPage = ({
   }
 }) => {
   const [activeTabId, setActiveTabId] = useState("gitemoji");
-  const onTabClick = useCallback(id => setActiveTabId(id));
+  const onTabClick = id => setActiveTabId(id);
   return (
     <Cheatsheet>
       <SiteHead siteInformation={siteMetadata} />

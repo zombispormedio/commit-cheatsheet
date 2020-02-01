@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import styled from "@emotion/styled";
@@ -55,32 +55,27 @@ const GitEmoji = ({ active, items }) => {
     };
   }, [items, pinned, search]);
 
-  const onChange = useCallback(({ target: { value: newSearch } }) => {
+  const onChange = (({ target: { value: newSearch } }) => {
     setSearch(newSearch);
     updateSearchUrl(newSearch);
-  }, []);
+  },
+  []);
 
-  const onPin = useCallback(
-    code =>
-      setPinned(prev => {
-        const newPinned = [...prev, code];
-        localStorage.setItem("pinned", newPinned.join(","));
-        return newPinned;
-      }),
-    []
-  );
+  const onPin = code =>
+    setPinned(prev => {
+      const newPinned = [...prev, code];
+      localStorage.setItem("pinned", newPinned.join(","));
+      return newPinned;
+    });
 
-  const onUnpin = useCallback(
-    code =>
-      setPinned(prev => {
-        const index = prev.findIndex(item => item === code);
-        const newPinned = [...prev];
-        newPinned.splice(index, 1);
-        localStorage.setItem("pinned", newPinned.join(","));
-        return newPinned;
-      }),
-    []
-  );
+  const onUnpin = code =>
+    setPinned(prev => {
+      const index = prev.findIndex(item => item === code);
+      const newPinned = [...prev];
+      newPinned.splice(index, 1);
+      localStorage.setItem("pinned", newPinned.join(","));
+      return newPinned;
+    });
 
   return (
     <GitEmojiWrapper active={active}>
