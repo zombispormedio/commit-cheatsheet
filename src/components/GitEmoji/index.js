@@ -55,11 +55,10 @@ const GitEmoji = ({ active, items }) => {
     };
   }, [items, pinned, search]);
 
-  const onChange = (({ target: { value: newSearch } }) => {
+  const onChange = ({ target: { value: newSearch } }) => {
     setSearch(newSearch);
     updateSearchUrl(newSearch);
-  },
-  []);
+  };
 
   const onPin = code =>
     setPinned(prev => {
